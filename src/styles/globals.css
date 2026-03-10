@@ -1,0 +1,144 @@
+@import "tailwindcss";
+
+:root {
+  --primary: #ddac00;
+  --sub-primary: #fed56d;
+  --layout: #151515;
+  --background: #090d18;
+}
+
+@theme inline {
+  --color-primary: var(--primary);
+  --color-sub-primary: var(--sub-primary);
+  --color-layout: var(--layout);
+  --color-background: var(--background);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-poppins: var(--font-poppins);
+  --font-inter: var(--font-inter);
+  --font-opensans: var(--font-opensans);
+}
+
+body {
+  font-family: Poppins, sans-serif;
+  background-color: var(--color-background);
+}
+
+.inner-shadow {
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.cinematic-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 30%,
+    rgba(0, 0, 0, 0.3) 60%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+}
+.fade-in-up {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Glow Text */
+.text-glow-white {
+  text-shadow:
+    0 0 5px rgba(255, 255, 255, 0.5),
+    0 0 5px rgba(255, 255, 255, 0.3);
+  overflow-wrap: break-word;
+}
+.text-glow-yellow {
+  text-shadow:
+    0 0 5px rgba(255, 255, 0, 0.5),
+    0 0 5px rgba(255, 255, 0, 0.3);
+  overflow-wrap: break-word;
+}
+
+/* Màu dots */
+:root {
+  --swiper-pagination-color: #333;
+}
+
+/* Fix z-index */
+.swiper {
+  z-index: 20 !important;
+}
+
+/* Base button */
+.swiper-button-next,
+.swiper-button-prev {
+  width: 40px !important;
+  height: 40px !important;
+  background: #333;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background: #555;
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  content: "" !important;
+}
+
+.swiper-button-next svg,
+.swiper-button-prev svg {
+  width: 10px !important;
+  color: white;
+}
+
+/* Vị trí */
+.swiper-button-next {
+  right: 10px !important;
+}
+.swiper-button-prev {
+  left: 10px !important;
+}
+.movies-swiper .swiper-slide:first-child {
+  margin-left: 28px;
+}
+.movies-swiper .swiper-slide:first-child {
+  margin-right: 28px;
+}
+
+.swiper-button-disabled {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Skeleton */
+.shimmer {
+  animation: shimmer 4s infinite linear;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
