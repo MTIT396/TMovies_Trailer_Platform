@@ -6,7 +6,7 @@ export const MOVIE_QUERY_KEYS = {
   detail: (id: number | string) => ["movies", "detail", id],
   tv_detail: (id: number | string) => ["tv", "detail", id],
   tv: (countryCode: string) => ["tv", countryCode],
-  movie_by_genre: (id: number) => ["movies", id],
+  movie_by_genre: (id: number, page: number) => ["movies", id, page],
   nation: (countryCode: string) => ["movies", "nation", countryCode],
   search: (query: string, page: number) => ["movies", "search", query, page],
   genres: ["movies", "genres"],

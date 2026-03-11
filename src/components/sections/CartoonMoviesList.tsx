@@ -5,7 +5,8 @@ import Section from "../ui/Section";
 import { useMoviesByGenre } from "@/hooks/useMovieQuery";
 
 const CartoonMoviesList = () => {
-  const { data, isLoading } = useMoviesByGenre(16);
+  // 16 is code cartoon
+  const { data, isLoading } = useMoviesByGenre(16, 1);
   return (
     <Section id="cartoons" className="bg-background">
       <div
