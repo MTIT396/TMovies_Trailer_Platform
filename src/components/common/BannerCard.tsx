@@ -4,7 +4,7 @@ import React from "react";
 type BannerCardProps = {
   id: number;
   image: string;
-  onHandleIndex:
+  onImageChange:
     | React.Dispatch<React.SetStateAction<number>>
     | ((prev: number) => void);
   isActive: boolean;
@@ -13,12 +13,12 @@ type BannerCardProps = {
 
 const BannerCard = ({
   image,
-  onHandleIndex,
+  onImageChange,
   isActive,
   index,
 }: BannerCardProps) => {
   const handleClick = () => {
-    onHandleIndex(index);
+    onImageChange(index);
   };
 
   return (

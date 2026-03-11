@@ -54,6 +54,7 @@ const Banner = () => {
               src={BASE_IMG_URL + currentMovie.backdrop_path}
               alt={currentMovie.title}
               fill
+              priority
             />
           </div>
 
@@ -194,7 +195,7 @@ const Banner = () => {
                   key={`banner-card-${item.id}`}
                   id={item.id}
                   image={BASE_IMG_URL + item.backdrop_path}
-                  onHandleIndex={handleImageChange}
+                  onImageChange={handleImageChange}
                   isActive={current === index}
                   index={index}
                 />
