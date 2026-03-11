@@ -43,11 +43,11 @@ export const useTVDetail = (id: number | string) => {
   });
 };
 
-export const useMoviesByGenre = (id: number, page: number) => {
+export const useMoviesByGenre = (id: number) => {
   return useQuery({
-    queryKey: MOVIE_QUERY_KEYS.movie_by_genre(id, page),
+    queryKey: MOVIE_QUERY_KEYS.movie_by_genre(id),
     queryFn: async () => {
-      const response = await movieServices.getMoviesByGenre(id, page);
+      const response = await movieServices.getMoviesByGenre(id);
       return response.data;
     },
     enabled: !!id,
