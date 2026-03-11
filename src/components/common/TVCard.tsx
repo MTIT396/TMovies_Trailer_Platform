@@ -1,9 +1,7 @@
 "use client";
 import { FaHeart } from "react-icons/fa";
 import { MdOutlinePlayCircle } from "react-icons/md";
-import { movieServices } from "@/services/movie.service";
 import { BASE_IMG_URL } from "@/lib/constant";
-import { useQuery } from "@tanstack/react-query";
 import { TVDetail } from "@/types/tv";
 import { useModalStore } from "@/store/useModalStore";
 import Image from "next/image";
@@ -42,24 +40,8 @@ const TVCard = ({
 
   const { name, poster_path, id, original_name } = TVseries;
 
-  const TVDetailsQuery = useQuery({
-    queryKey: ["movie_details", id],
-    queryFn: () => {
-      return movieServices.getTVDetail(id);
-    },
-    enabled: !!id,
-  });
-  const TVDetails = TVDetailsQuery.data?.data;
-
   return (
     <div className={`relative flex flex-col ${sizeMap[size].w}`}>
-      {/* Genres */}
-      {!!(TVDetails?.episode_run_time.length > 0) && (
-        <span className="font-bold text-xs sm:text-[13px] text-yellow-950 absolute top-4 right-4 rounded-md px-1 py-1 sm:px-2 bg-yellow-600 z-8">
-          {TVDetails.episode_run_time[0]} phút
-        </span>
-      )}
-
       {/* Number Badge */}
       {index !== undefined && numberedStyle === "big-stroke" && (
         <span

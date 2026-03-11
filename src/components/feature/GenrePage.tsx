@@ -2,10 +2,9 @@
 import MovieCard from "@/components/common/MovieCard";
 import Pagination from "@/components/ui/Pagination";
 import MovieCardSkeleton from "@/components/common/skeleton/MovieCardSkeleton";
-import { movieServices } from "@/services/movie.service";
-import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { useQueryString } from "@/hooks/useQueryString";
+import { useGenres, useMoviesByGenre } from "@/hooks/useMovieQuery";
 
 const GenrePage = () => {
   const { id } = useParams();
@@ -14,21 +13,13 @@ const GenrePage = () => {
   const page = Number(queryString.page) || 1;
 
   // Individual Genre
-  const { data, isLoading } = useQuery({
-    queryKey: ["genre", reqId, page],
-    queryFn: () => movieServices.getMoviesByGenre(reqId, page),
-    enabled: !!reqId && !!page,
-  });
+  const { data: movies, isLoading } = useMoviesByGenre(reqId, page);
   // All Genres
-  const genresQuery = useQuery({
-    queryKey: ["categories"],
-    queryFn: () => movieServices.getGenres(),
-  });
+  const genresQuery = useGenres();
 
-  const currentGenre = genresQuery.data?.data.genres.find(
-    (item) => item.id === reqId,
-  );
-  const totalPage = data?.data.total_pages || 0;
+  const currentGenre = genresQuery.data?.find((item) => item.id === reqId);
+
+  const totalPage = movies?.total_pages || 0;
 
   return (
     <div>
@@ -41,7 +32,7 @@ const GenrePage = () => {
             ? Array.from({ length: 12 }).map((_, i) => (
                 <MovieCardSkeleton key={`skel-${i}`} />
               ))
-            : data?.data.results.map((movie) => (
+            : movies?.results.map((movie) => (
                 <MovieCard movie={movie} key={movie.id} size="free" />
               ))}
         </div>

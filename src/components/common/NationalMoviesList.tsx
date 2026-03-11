@@ -1,9 +1,8 @@
 "use client";
-import { movieServices } from "@/services/movie.service";
 import { FiChevronRight } from "react-icons/fi";
 import SwiperNationalMovies from "./swipers/SwiperNationalMovies";
-import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
+import { useMoviesByCountry } from "@/hooks/useMovieQuery";
 
 export type NationalMoviesListProps = {
   countryCode: string;
@@ -15,12 +14,7 @@ const NationalMoviesList = ({
   countryName,
   color,
 }: NationalMoviesListProps) => {
-  const { data, isLoading } = useQuery({
-    queryKey: ["national_movies", countryCode],
-    queryFn: () => {
-      return movieServices.getMoviesByCountry(countryCode);
-    },
-  });
+  const { data, isLoading } = useMoviesByCountry(countryCode);
 
   return (
     <div className="border-gray-800 border-b w-full flex flex-wrap lg:flex-nowrap gap-y-10 py-10 px-6 lg:px-20 bg-[#090D18] relative ">
@@ -56,7 +50,7 @@ const NationalMoviesList = ({
       </div>
 
       <SwiperNationalMovies
-        movies={data?.data.results || []}
+        movies={data?.results || []}
         isLoading={isLoading}
       />
     </div>

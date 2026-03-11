@@ -3,11 +3,10 @@ import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useState, useRef, useEffect } from "react";
 import SuggestMovie from "./SuggestMovie";
-import { movieServices } from "@/services/movie.service";
 import SuggestMovieSkeleton from "./skeleton/SuggestMovieSkeleton";
-import { useQuery } from "@tanstack/react-query";
 import { AnimatePresence, motion } from "framer-motion";
 import { useSidebarStore } from "@/store/useSidebarStore";
+import { useGenres, useSearchMovies } from "@/hooks/useMovieQuery";
 const Searchbar = () => {
   const [searchTerms, setSearchTerms] = useState<string>("");
   const [isOpen, setIsOpen] = useState(false);
@@ -16,12 +15,9 @@ const Searchbar = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Get All Genres
-  const genresQuery = useQuery({
-    queryKey: ["categories"],
-    queryFn: () => movieServices.getGenres(),
-  });
+  const genresQuery = useGenres();
 
-  const genres = genresQuery.data?.data.genres || [];
+  const genres = genresQuery.data || [];
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerms(e.target.value);
@@ -31,12 +27,8 @@ const Searchbar = () => {
   const keyword = useDebounce(searchTerms.trim(), 500);
 
   // Get Movies By Searching
-  const { data, isFetching } = useQuery({
-    queryKey: ["search_movies", keyword],
-    queryFn: () => movieServices.searchMovies(keyword),
-    enabled: keyword.trim().length > 0,
-  });
-  const movies = data?.data.results;
+  const { data, isFetching } = useSearchMovies(keyword);
+  const movies = data?.results;
 
   const handleSearch = () => {
     const query = searchTerms.trim();

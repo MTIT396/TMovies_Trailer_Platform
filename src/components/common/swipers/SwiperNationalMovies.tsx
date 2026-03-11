@@ -54,8 +54,8 @@ const SwiperNationalMovies = ({
           slidesPerGroup: 3,
         },
         1280: {
-          slidesPerView: 6,
-          spaceBetween: 80,
+          slidesPerView: 5.5,
+          spaceBetween: 40,
           slidesPerGroup: 4,
         },
       }}

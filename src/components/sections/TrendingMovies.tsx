@@ -1,15 +1,11 @@
 "use client";
-import { movieServices } from "@/services/movie.service";
-import { useQuery } from "@tanstack/react-query";
 import { BsFire } from "react-icons/bs";
 import SwiperMovies from "../common/swipers/SwiperMovies";
 import Section from "../ui/Section";
+import { usePopularMovies } from "@/hooks/useMovieQuery";
 
 const TrendingMovies = () => {
-  const { data, isLoading } = useQuery({
-    queryKey: ["trending_movies"],
-    queryFn: () => movieServices.getUpcomingMovies(),
-  });
+  const { data, isLoading } = usePopularMovies();
 
   return (
     <Section id="trending_movies">
@@ -21,7 +17,7 @@ const TrendingMovies = () => {
           Hiện đang thịnh hành
         </h2>
       </div>
-      <SwiperMovies movies={data?.data.results || []} isLoading={isLoading} />
+      <SwiperMovies movies={data?.results || []} isLoading={isLoading} />
     </Section>
   );
 };

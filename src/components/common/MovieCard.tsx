@@ -2,9 +2,7 @@
 import { FaHeart } from "react-icons/fa";
 import { MdOutlinePlayCircle } from "react-icons/md";
 import { Movie } from "@/types/movie";
-import { movieServices } from "@/services/movie.service";
 import { BASE_IMG_URL } from "@/lib/constant";
-import { useQuery } from "@tanstack/react-query";
 import { useModalStore } from "@/store/useModalStore";
 import Image from "next/image";
 import Link from "next/link";
@@ -41,15 +39,6 @@ const MovieCard = ({
   };
   const { original_title, title, poster_path, id } = movie;
 
-  // Movie Query
-  const movieDetailsQuery = useQuery({
-    queryKey: ["movie_details", id],
-    queryFn: () => {
-      return movieServices.getMovieDetail(id);
-    },
-    enabled: !!id,
-  });
-  const movieDetails = movieDetailsQuery.data?.data;
   const shouldShowNumber = typeof index === "number" && numberedStyle;
   const { handlePlayTrailer } = useModalStore();
 
@@ -57,11 +46,6 @@ const MovieCard = ({
     <Link href={`/movie/${id}`}>
       <div className={`relative flex flex-col ${sizeMap[size].w}`}>
         {/* Genres */}
-        {!!(movieDetails?.runtime && movieDetails.runtime > 0) && (
-          <span className="font-bold text-xs sm:text-[13px] text-yellow-950 absolute top-4 right-4 rounded-md px-1 py-1 sm:px-2 bg-yellow-600 z-10">
-            {movieDetails.runtime} phút
-          </span>
-        )}
 
         {/* Number Badge */}
         {shouldShowNumber && numberedStyle === "big-stroke" && (

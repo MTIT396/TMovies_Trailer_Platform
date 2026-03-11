@@ -7,6 +7,7 @@ import { useQueryString } from "@/hooks/useQueryString";
 import { movieServices } from "@/services/movie.service";
 import { useQuery } from "@tanstack/react-query";
 import { TextSearch } from "lucide-react";
+import Loading from "../ui/Loading";
 
 const SearchPage = () => {
   const queryString: { q?: string } = useQueryString();
@@ -19,7 +20,12 @@ const SearchPage = () => {
 
   if (!querySearch)
     return <p className="text-primary">Hãy nhập từ khóa tìm kiếm!</p>;
-  if (isLoading) return <p className="text-primary">Loading...</p>;
+  if (isLoading)
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <Loading />
+      </div>
+    );
   if (error) return <p className="text-primary">Lỗi khi tìm kiếm</p>;
 
   return (

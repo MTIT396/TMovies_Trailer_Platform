@@ -82,7 +82,7 @@ src/
    Chỉnh sửa file `.env.local`:
 
    ```env
-   NEXT_PUBLIC_NEXT_PUBLIC_TMDB_ACCESS_TOKEN=YOUR_NEXT_PUBLIC_TMDB_ACCESS_TOKEN
+   NEXT_PUBLIC_TMDB_ACCESS_TOKEN=YOUR_TMDB_ACCESS_TOKEN
    ```
 
 4. **Chạy development server**
@@ -110,9 +110,9 @@ src/
 
 ## ⚙️ Biến môi trường
 
-| Biến                                        | Mô tả            |
-| ------------------------------------------- | ---------------- |
-| `NEXT_PUBLIC_NEXT_PUBLIC_TMDB_ACCESS_TOKEN` | URL của TMDB API |
+| Biến                            | Mô tả            |
+| ------------------------------- | ---------------- |
+| `NEXT_PUBLIC_TMDB_ACCESS_TOKEN` | URL của TMDB API |
 
 ## 📱 Responsive Design
 

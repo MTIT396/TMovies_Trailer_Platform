@@ -1,11 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import React from "react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
-import { movieServices } from "@/services/movie.service";
 import { BASE_IMG_URL } from "@/lib/constant";
 import Link from "next/link";
 import { MessageCircle, Plus, Send } from "lucide-react";
@@ -15,18 +12,15 @@ import { useModalStore } from "@/store/useModalStore";
 import { truncateText } from "@/lib/utils";
 import Loading from "@/components/ui/Loading";
 import { Cast } from "@/types/credit";
+import { useMovieDetail } from "@/hooks/useMovieQuery";
 
 export default function MovieDetailPage() {
   const { id } = useParams();
+  const reqId = Number(id);
+
   const { handlePlayTrailer } = useModalStore();
 
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["movie_detail", id],
-    queryFn: () => movieServices.getMovieDetail(id as string),
-    enabled: !!id,
-  });
-
-  const movie = data?.data;
+  const { data: movie, isLoading, isError } = useMovieDetail(reqId);
 
   if (isError)
     return (

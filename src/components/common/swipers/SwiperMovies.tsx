@@ -22,6 +22,7 @@ const SwiperMovies = ({
   numberedStyle = "big-stroke",
   showActions = false,
 }: SwiperMoviesProps) => {
+  // Movie Query
   if (isLoading) {
     return (
       <div className="w-full overflow-hidden">

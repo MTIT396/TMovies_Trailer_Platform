@@ -1,17 +1,11 @@
 "use client";
-import { movieServices } from "@/services/movie.service";
-import { useQuery } from "@tanstack/react-query";
 import { FiChevronRight } from "react-icons/fi";
 import SwiperMovies from "../common/swipers/SwiperMovies";
 import Section from "../ui/Section";
+import { useMoviesByGenre } from "@/hooks/useMovieQuery";
 
 const CartoonMoviesList = () => {
-  const { data, isLoading } = useQuery({
-    queryKey: ["cartoon_movies"],
-    queryFn: () => {
-      return movieServices.getMoviesByGenre(16);
-    },
-  });
+  const { data, isLoading } = useMoviesByGenre(16);
   return (
     <Section id="cartoons" className="bg-background">
       <div
@@ -47,7 +41,7 @@ const CartoonMoviesList = () => {
 
         <div>
           <SwiperMovies
-            movies={data?.data.results.slice(0, 10) || []}
+            movies={data?.results.slice(0, 10) || []}
             isLoading={isLoading}
             numberedStyle="diamond"
             showActions

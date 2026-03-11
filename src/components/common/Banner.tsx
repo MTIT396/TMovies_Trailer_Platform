@@ -4,27 +4,23 @@ import { BiFilm, BiTrendingUp } from "react-icons/bi";
 import { FaRegCalendarCheck, FaRegHeart, FaStar } from "react-icons/fa";
 import { FiPlus } from "react-icons/fi";
 import BannerCard from "@/components/common/BannerCard";
-import { movieServices } from "@/services/movie.service";
 import Play from "./Play";
 import { truncateText } from "@/lib/utils";
 import { BASE_IMG_URL } from "@/lib/constant";
 import BadgeInfo from "./BadgeInfo";
-import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useModalStore } from "@/store/useModalStore";
 import Section from "../ui/Section";
+import { useNowPlayingMovies } from "@/hooks/useMovieQuery";
 
 const Banner = () => {
   const [current, setCurrent] = useState<number>(0);
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
 
   // Movies Fetching
-  const { data } = useQuery({
-    queryKey: ["banner_movies"],
-    queryFn: () => movieServices.getNowPlayingMovies(),
-  });
+  const { data: movies } = useNowPlayingMovies();
 
-  const currentMovie = data?.data.results[current];
+  const currentMovie = movies?.results[current];
 
   // Smooth transition effect
   const handleImageChange = (newIndex: number) => {
@@ -40,7 +36,7 @@ const Banner = () => {
     }, 200);
   };
 
-  const banners = data?.data.results.slice(0, 8) || [];
+  const banners = movies?.results.slice(0, 8) || [];
 
   const { handlePlayTrailer } = useModalStore();
 
@@ -195,7 +191,7 @@ const Banner = () => {
             <div className="flex items-center gap-1 sm:gap-3">
               {banners.map((item, index) => (
                 <BannerCard
-                  key={item.id}
+                  key={`banner-card-${item.id}`}
                   id={item.id}
                   image={BASE_IMG_URL + item.backdrop_path}
                   onHandleIndex={handleImageChange}

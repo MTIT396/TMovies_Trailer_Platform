@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { tmdbApi } from "@/lib/axios";
+import { apiClient } from "@/lib/axios";
 import { create } from "zustand";
 
 interface ModalState {
@@ -9,7 +9,7 @@ interface ModalState {
   closeModal: () => void;
   handlePlayTrailer: (
     movieId: string,
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => void;
 }
 
@@ -24,19 +24,20 @@ export const useModalStore = create<ModalState>((set, get) => ({
     set({ isOpen: false, trailerKey: undefined });
     document.body.style.overflow = "unset";
   },
+
   handlePlayTrailer: async (
     movieId,
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     e.stopPropagation();
     e.preventDefault();
-    const res = await tmdbApi.get(`/movie/${movieId}/videos`, {
+    const res = await apiClient.get(`/tmdb/movie/${movieId}/videos`, {
       params: {
         language: "en-US",
       },
     });
     const trailer = res.data.results.find(
-      (v: any) => v.type === "Trailer" && v.site === "YouTube"
+      (v: any) => v.type === "Trailer" && v.site === "YouTube",
     );
     get().openModal(trailer?.key);
   },

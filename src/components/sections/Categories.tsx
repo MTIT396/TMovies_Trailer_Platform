@@ -3,22 +3,17 @@ import React, { useState } from "react";
 import { MdOutlineExplore } from "react-icons/md";
 import SwiperGenres from "../common/swipers/SwiperGenres";
 import CategoryCard from "../common/CategoryCard";
-import { movieServices } from "@/services/movie.service";
-import { useQuery } from "@tanstack/react-query";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import { AnimatePresence } from "framer-motion";
 import { motion } from "framer-motion";
 import Loading from "../ui/Loading";
 import Section from "../ui/Section";
+import { useGenres } from "@/hooks/useMovieQuery";
 
 const DEFAULT_COUNTS = 8;
 
 const Categories = () => {
-  const { data, isLoading } = useQuery({
-    queryKey: ["categories"],
-    queryFn: () => movieServices.getGenres(),
-  });
-  const genres = data?.data.genres || [];
+  const { data: genres = [], isLoading } = useGenres();
   const [countShowMore, setCountShowMore] = useState<number>(DEFAULT_COUNTS);
   const handleShowMore = () => {
     setCountShowMore((prev) => prev + DEFAULT_COUNTS);
