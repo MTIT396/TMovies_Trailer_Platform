@@ -71,13 +71,13 @@ const MovieCard = ({
 
         {/* Image */}
         <div
-          className={`group overflow-hidden shadow-2xl relative ${sizeMap[size].h} rounded-xl mb-2 cursor-pointer transition duration-300`}
+          className={`group overflow-hidden shadow-2xl relative ${sizeMap[size].h} rounded-xl mb-2 cursor-pointer transition duration-300 border-4 border-transparent hover:border-sub-primary`}
         >
           <Image
             src={poster_path ? BASE_IMG_URL + poster_path : "/no_img.jpg"}
             alt={title}
             fill
-            className="object-cover group-hover:scale-110 group-hover:opacity-70 transition-all duration-500 ease-in-out rounded-xl"
+            className="object-cover group-hover:scale-105 group-hover:opacity-70 transition-all duration-500 ease-in-out rounded-xl"
             sizes={
               size === "small"
                 ? "95px"
@@ -89,22 +89,6 @@ const MovieCard = ({
             }
             priority={index === 0}
           />
-
-          {showActions && (
-            <button
-              onClick={(e) => handlePlayTrailer(id.toString(), e)}
-              className="cursor-pointer group-hover:bottom-4 md:group-hover:opacity-100 opacity-0 absolute -bottom-1 transition-all duration-300 flex w-full gap-2 px-4"
-            >
-              <div className="transition duration-300 rounded-md bg-white hover:bg-red-700 flex flex-1 items-center justify-center gap-1 text-black hover:text-white">
-                <MdOutlinePlayCircle size={18} />
-                <span className="text-[13px] font-opensans">Xem ngay</span>
-              </div>
-
-              <div className="hover:text-red-600 text-white transition duration-300 rounded-full p-2 bg-gray-500">
-                <FaHeart size={16} />
-              </div>
-            </button>
-          )}
         </div>
 
         {/* Title */}
